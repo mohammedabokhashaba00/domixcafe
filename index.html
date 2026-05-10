@@ -1,0 +1,3096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domix Café | Premium Coffee & Desserts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #D2691E;
+            --cream: #FDF5E6;
+            --dark: #2C1810;
+            --accent: #E8D5C4;
+            --text: #4A3728;
+            --text-light: #8B7355;
+            --gold: #D4AF37;
+            --card-bg: #FFF8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(253, 245, 230, 0.98);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--accent) 50%, #f0e0d0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero .sub-tagline {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s;
+            border: 3px solid var(--primary);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.7s forwards;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 5rem 3%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--accent);
+            background: white;
+            color: var(--text);
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-title i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--accent);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border-color: var(--primary-light);
+        }
+
+        .card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .card-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .card-price span {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .card-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            background: var(--cream);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-hint {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: var(--cream);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+            border: 1px dashed var(--accent);
+        }
+
+        .card-hint i {
+            color: var(--primary);
+            margin-right: 0.3rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.4s ease;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.8) translateY(50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-header .modal-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.4);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-section h4 i {
+            font-size: 1.2rem;
+        }
+
+        .ingredients-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ingredient-tag {
+            background: var(--cream);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--accent);
+        }
+
+        .how-to-box {
+            background: var(--cream);
+            padding: 1.2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--dark);
+            color: var(--cream);
+            padding: 5rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: rgba(253, 245, 230, 0.8);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(253, 245, 230, 0.6);
+            margin-top: 0.3rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3) 0%, rgba(44, 24, 16, 0.5) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--accent);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: rgba(253, 245, 230, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-5px) rotate(10deg);
+        }
+
+        .copyright {
+            color: rgba(232, 213, 196, 0.4);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-text {
+            margin-top: 1rem;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 3000;
+            padding: 2rem;
+            transition: left 0.3s ease;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            margin-top: 3rem;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2500;
+            display: none;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">Domix</div>
+        <div class="loader-text">Loading menu...</div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo"><i class="fas fa-mug-hot"></i> Domix</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Domix Café</h1>
+            <p class="tagline">We mixed coffee beans to bring you happiness</p>
+            <p class="sub-tagline">Premium Coffee, Fresh Juices & Artisanal Desserts</p>
+            <a href="#menu" class="cta-button">Explore Our Menu <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="section-header reveal">
+            <h2>Our Menu</h2>
+            <p>91 premium items across 12 categories</p>
+        </div>
+
+        <div class="filter-tabs reveal">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="hot_coffee">☕ Hot Coffee</button>
+            <button class="filter-btn" data-filter="turkish_coffee">☕ Turkish Coffee</button>
+            <button class="filter-btn" data-filter="hot_drinks">🫖 Hot Drinks</button>
+            <button class="filter-btn" data-filter="iced_coffee">🧊 Iced Coffee</button>
+            <button class="filter-btn" data-filter="milkshake">🥤 Milkshake</button>
+            <button class="filter-btn" data-filter="smoothie">🍹 Smoothie</button>
+            <button class="filter-btn" data-filter="fresh_juice">🍊 Fresh Juice</button>
+            <button class="filter-btn" data-filter="yogurt">🥛 Yogurt</button>
+            <button class="filter-btn" data-filter="cocktail">🍸 Cocktail</button>
+            <button class="filter-btn" data-filter="soda">🥤 Soda</button>
+            <button class="filter-btn" data-filter="dessert">🍰 Dessert</button>
+            <button class="filter-btn" data-filter="ice_cream">🍦 Ice Cream</button>
+        </div>
+
+        <div id="menuContainer">
+
+            <div class="category-section reveal" data-category="hot_coffee">
+                <h3 class="category-title"><i class="fas fa-mug-hot"></i> Hot Coffee</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="0">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.javapresse.com/960ceeb1c8f2d5c7011743d81bf8e4c6559874b0.webp" alt="Spanish Latte" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Spanish Latte</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Slowly heat the milk, brew the espresso, add sweetened conde...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Sweetened Condensed Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="1">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.littlesugarsnaps.com/70df008f51daf0bdfd04b7b8c3a44a7b823e23bf.jpg" alt="Pistachio Latte" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Pistachio Latte</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix pistachio butter with hot milk, add espresso and whipped...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Milk</span><span class="tag">Pistachio Butter</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="2">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Affogato" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Affogato</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour hot espresso over vanilla ice cream with shaved chocola...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Vanilla Ice Cream</span><span class="tag">Dark Chocolate</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="3">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.nescafe.com/58ab4d3fa32591e056d8950aa0edabc3e034e793.jpg" alt="Nescafe Classic" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Nescafe Classic</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Add a spoon of Nescafe to a cup, pour hot water and stir wel...</div>
+                            <div class="card-tags">
+                                <span class="tag">Nescafe</span><span class="tag">Hot Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="4">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.nescafe.com/eaf5294f4c7bb5f26193391d4145247d2becba00.jpg" alt="Nescafe with Milk" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Nescafe with Milk</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Dissolve Nescafe in hot water, add steamed milk and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Nescafe</span><span class="tag">Hot Milk</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="5">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/kunjaninaples.com/eecc70d350b3de879bd183ac4d5b9cbf88ec58d9.jpg" alt="Espresso" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Espresso</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Grind beans finely, press hot water under high pressure for ...</div>
+                            <div class="card-tags">
+                                <span class="tag">Arabica Coffee Beans</span><span class="tag">Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="6">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/kunjaninaples.com/eecc70d350b3de879bd183ac4d5b9cbf88ec58d9.jpg" alt="Double Espresso" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Double Espresso</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Double shot espresso pressed under high pressure for concent...</div>
+                            <div class="card-tags">
+                                <span class="tag">Arabica Beans (Double Shot)</span><span class="tag">Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="7">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/2dff3c228df5b6b6af445a9216e6e96637f5fbac.jpg" alt="Espresso Macchiato" loading="lazy">
+                            <span class="card-badge">40 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Espresso Macchiato</div>
+                                <div class="card-price">40 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with a light touch of steamed milk and foam...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Light Foam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="8">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/2dff3c228df5b6b6af445a9216e6e96637f5fbac.jpg" alt="Double Macchiato" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Double Macchiato</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Double shot espresso with steamed milk and thick foam...</div>
+                            <div class="card-tags">
+                                <span class="tag">Double Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Foam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="9">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/coffeegeek.com/cd5e52e4ecf800b061399ecdfedff62982f276f6.jpg" alt="Cortado" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cortado</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Half cup espresso and half cup warm milk in 1:1 ratio...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Warm Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="turkish_coffee">
+                <h3 class="category-title"><i class="fas fa-coffee"></i> Turkish Coffee</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="10">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.coffeeness.de/f047595ed159331bdde6fd9347c6f9e7b347e71c.jpg" alt="Turkish Coffee" loading="lazy">
+                            <span class="card-badge">25 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Turkish Coffee</div>
+                                <div class="card-price">25 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Boil water with finely ground coffee in a cezve until foam a...</div>
+                            <div class="card-tags">
+                                <span class="tag">Turkish Ground Coffee</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="11">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.coffeeness.de/f047595ed159331bdde6fd9347c6f9e7b347e71c.jpg" alt="Double Turkish" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Double Turkish</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Double amount of Turkish ground coffee with water in cezve...</div>
+                            <div class="card-tags">
+                                <span class="tag">Turkish Coffee (Double)</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="12">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.thespruceeats.com/1bfa7080cdfd0255a0776410004b8416d4bdf2dd.jpg" alt="French Coffee" loading="lazy">
+                            <span class="card-badge">40 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">French Coffee</div>
+                                <div class="card-price">40 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix roasted coffee with Nescafe, cocoa, milk powder and cinn...</div>
+                            <div class="card-tags">
+                                <span class="tag">Roasted Coffee</span><span class="tag">Nescafe</span><span class="tag">Cocoa</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="13">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/t4.ftcdn.net/bdb4477ee54147ffed8f6bedbb8103ec7dd10ec5.jpg" alt="Hazelnut Coffee" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Hazelnut Coffee</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Add crushed hazelnuts, vanilla and cinnamon to hot coffee...</div>
+                            <div class="card-tags">
+                                <span class="tag">Coffee</span><span class="tag">Crushed Hazelnuts</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="14">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Nutella Coffee" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Nutella Coffee</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Melt Nutella in hot milk, add espresso and cream...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Nutella</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="15">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.thespruceeats.com/1bfa7080cdfd0255a0776410004b8416d4bdf2dd.jpg" alt="Flat White" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Flat White</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">One or two shots espresso with microfoam from steamed milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Microfoam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="16">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Mocha" loading="lazy">
+                            <span class="card-badge">65 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mocha</div>
+                                <div class="card-price">65 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix espresso with cocoa, chocolate and steamed milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Milk</span><span class="tag">Cocoa</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="17">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Americano" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Americano</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with added hot water to dilute the flavor...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Hot Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="18">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/2dff3c228df5b6b6af445a9216e6e96637f5fbac.jpg" alt="Latte" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Latte</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with large amount of steamed milk and light foam...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Light Foam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="19">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/2dff3c228df5b6b6af445a9216e6e96637f5fbac.jpg" alt="Cappuccino" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cappuccino</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with steamed milk and thick foam, sprinkle cinnamon...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Steamed Milk</span><span class="tag">Thick Foam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="hot_drinks">
+                <h3 class="category-title"><i class="fas fa-mug-saucer"></i> Hot Drinks</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="20">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Herbal Cocktail" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Herbal Cocktail</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Steep herbs in hot water with honey and lemon...</div>
+                            <div class="card-tags">
+                                <span class="tag">Mixed Herbs</span><span class="tag">Water</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="21">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/ohsweetbasil.com/c159baf270c79ee4f999d00c6aa8ef8e397575e0.jpg" alt="Cinnamon Milk" loading="lazy">
+                            <span class="card-badge">40 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cinnamon Milk</div>
+                                <div class="card-price">40 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Heat milk with cinnamon, sugar and vanilla...</div>
+                            <div class="card-tags">
+                                <span class="tag">Milk</span><span class="tag">Cinnamon</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="22">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/ohsweetbasil.com/c159baf270c79ee4f999d00c6aa8ef8e397575e0.jpg" alt="Hot Cider" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Hot Cider</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Boil apple juice with cinnamon, cloves and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Apple</span><span class="tag">Cinnamon</span><span class="tag">Cloves</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="23">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Sahlab" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Sahlab</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Dissolve sahlab in hot milk with continuous stirring until t...</div>
+                            <div class="card-tags">
+                                <span class="tag">Sahlab Powder</span><span class="tag">Milk</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="24">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/ohsweetbasil.com/c159baf270c79ee4f999d00c6aa8ef8e397575e0.jpg" alt="Hot Chocolate" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Hot Chocolate</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Dissolve cocoa and chocolate in hot milk with cream...</div>
+                            <div class="card-tags">
+                                <span class="tag">Cocoa</span><span class="tag">Milk</span><span class="tag">Chocolate</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="25">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Tea" loading="lazy">
+                            <span class="card-badge">15 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Tea</div>
+                                <div class="card-price">15 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Steep tea bag in hot water for 3-5 minutes...</div>
+                            <div class="card-tags">
+                                <span class="tag">Black Tea</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="26">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Ahmad Tea" loading="lazy">
+                            <span class="card-badge">20 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Ahmad Tea</div>
+                                <div class="card-price">20 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Steep Ahmad tea in hot water...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ahmad Tea</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="27">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.butteredsideupblog.com/9a1479ac27bb5a1a2b72761c5eca0166ea755667.jpg" alt="Flavored Tea" loading="lazy">
+                            <span class="card-badge">25 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Flavored Tea</div>
+                                <div class="card-price">25 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Black tea with flavors like berry or fruits...</div>
+                            <div class="card-tags">
+                                <span class="tag">Tea</span><span class="tag">Various Flavors</span><span class="tag">Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="28">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.thespruceeats.com/1bfa7080cdfd0255a0776410004b8416d4bdf2dd.jpg" alt="Tea with Milk" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Tea with Milk</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Boil tea with milk, cardamom and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Black Tea</span><span class="tag">Milk</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="29">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.nescafe.com/58ab4d3fa32591e056d8950aa0edabc3e034e793.jpg" alt="Coffee Mix" loading="lazy">
+                            <span class="card-badge">25 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Coffee Mix</div>
+                                <div class="card-price">25 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix instant coffee with creamer, sugar and hot water...</div>
+                            <div class="card-tags">
+                                <span class="tag">Instant Coffee</span><span class="tag">Creamer</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="30">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Herbal Tea" loading="lazy">
+                            <span class="card-badge">20 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Herbal Tea</div>
+                                <div class="card-price">20 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Steep natural herbs in hot water with honey...</div>
+                            <div class="card-tags">
+                                <span class="tag">Natural Herbs</span><span class="tag">Water</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="iced_coffee">
+                <h3 class="category-title"><i class="fas fa-glass-water"></i> Iced Coffee</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="31">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Iced Coffee" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Coffee</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix cold coffee with milk, ice and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Coffee</span><span class="tag">Ice</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="32">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Iced Latte" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Latte</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Chilled espresso with cold milk and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cold Milk</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="33">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.littlesugarsnaps.com/70df008f51daf0bdfd04b7b8c3a44a7b823e23bf.jpg" alt="Iced Pistachio Latte" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Pistachio Latte</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix pistachio butter with cold milk, espresso and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cold Milk</span><span class="tag">Pistachio Butter</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="34">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.javapresse.com/960ceeb1c8f2d5c7011743d81bf8e4c6559874b0.webp" alt="Iced Spanish Latte" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Spanish Latte</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with cold milk, condensed milk and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cold Milk</span><span class="tag">Condensed Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="35">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Iced Cappuccino" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Cappuccino</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Chilled espresso with milk, foam and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cold Milk</span><span class="tag">Foam</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="36">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Iced Mocha" loading="lazy">
+                            <span class="card-badge">65 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Mocha</div>
+                                <div class="card-price">65 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix espresso with cocoa, cold milk and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cocoa</span><span class="tag">Cold Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="37">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Iced Americano" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Iced Americano</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Espresso with cold water and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Espresso</span><span class="tag">Cold Water</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="38">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Caramel Frappe" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Caramel Frappe</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend coffee with caramel, milk and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Coffee</span><span class="tag">Caramel</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="39">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Caramel Frappuccino" loading="lazy">
+                            <span class="card-badge">70 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Caramel Frappuccino</div>
+                                <div class="card-price">70 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend all ingredients until creamy consistency...</div>
+                            <div class="card-tags">
+                                <span class="tag">Coffee</span><span class="tag">Caramel</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="milkshake">
+                <h3 class="category-title"><i class="fas fa-whiskey-glass"></i> Milkshake</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="40">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Vanilla Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Vanilla Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend vanilla ice cream with milk and vanilla...</div>
+                            <div class="card-tags">
+                                <span class="tag">Vanilla Ice Cream</span><span class="tag">Milk</span><span class="tag">Vanilla</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="41">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Caramel Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Caramel Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with caramel and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Caramel</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="42">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Chocolate Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Chocolate Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend chocolate ice cream with milk and cocoa...</div>
+                            <div class="card-tags">
+                                <span class="tag">Chocolate Ice Cream</span><span class="tag">Milk</span><span class="tag">Cocoa</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="43">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Strawberry Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Strawberry Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with fresh strawberries and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Strawberries</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="44">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Mango Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mango Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with mango and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Mango</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="45">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Oreo Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Oreo Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with crushed Oreo cookies and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Oreo Cookies</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="46">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/foodisafourletterword.com/f5cb47eab03e55fa4f291ff3fbaa1a49cd27f7e0.jpg" alt="Lotus Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Lotus Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with Lotus biscuit, caramel and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Lotus Biscuit</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="47">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Blueberry Milkshake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Blueberry Milkshake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with blueberries and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Blueberries</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="48">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.littlesugarsnaps.com/70df008f51daf0bdfd04b7b8c3a44a7b823e23bf.jpg" alt="Pistachio Milkshake" loading="lazy">
+                            <span class="card-badge">85 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Pistachio Milkshake</div>
+                                <div class="card-price">85 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with ground pistachio and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Pistachio</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="49">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Fudge Milkshake" loading="lazy">
+                            <span class="card-badge">95 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Fudge Milkshake</div>
+                                <div class="card-price">95 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with fudge and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Chocolate Fudge</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="50">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Cheesecake Milkshake" loading="lazy">
+                            <span class="card-badge">95 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cheesecake Milkshake</div>
+                                <div class="card-price">95 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend ice cream with cheesecake pieces and milk...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Cheesecake</span><span class="tag">Milk</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="smoothie">
+                <h3 class="category-title"><i class="fas fa-blender"></i> Smoothie</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="51">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Watermelon Smoothie" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Watermelon Smoothie</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend watermelon with ice and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Watermelon</span><span class="tag">Ice</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="52">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Blueberry Smoothie" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Blueberry Smoothie</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend blueberries with milk, honey and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Blueberries</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="53">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Kiwi Smoothie" loading="lazy">
+                            <span class="card-badge">65 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Kiwi Smoothie</div>
+                                <div class="card-price">65 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend kiwi with milk, honey and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Kiwi</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="54">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Mango Smoothie" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mango Smoothie</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend mango with milk, honey and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Mango</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="55">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Strawberry Smoothie" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Strawberry Smoothie</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend strawberries with milk, honey and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Strawberries</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="56">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Lemon Smoothie" loading="lazy">
+                            <span class="card-badge">40 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Lemon Smoothie</div>
+                                <div class="card-price">40 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend lemon juice with sugar, water and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Lemon</span><span class="tag">Sugar</span><span class="tag">Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="57">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Lemon Mint Smoothie" loading="lazy">
+                            <span class="card-badge">45 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Lemon Mint Smoothie</div>
+                                <div class="card-price">45 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend lemon with fresh mint, sugar and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Lemon</span><span class="tag">Mint</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="fresh_juice">
+                <h3 class="category-title"><i class="fas fa-lemon"></i> Fresh Juice</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="58">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Mango Juice" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mango Juice</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend fresh mango with water and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Fresh Mango</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="59">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Strawberry Juice" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Strawberry Juice</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend strawberries with water and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Fresh Strawberries</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="60">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Strawberry Milk Juice" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Strawberry Milk Juice</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend strawberries with milk and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Strawberries</span><span class="tag">Milk</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="61">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Guava Juice" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Guava Juice</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend guava with water and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Fresh Guava</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="62">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Guava Milk Juice" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Guava Milk Juice</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend guava with milk and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Guava</span><span class="tag">Milk</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="63">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/ohsweetbasil.com/c159baf270c79ee4f999d00c6aa8ef8e397575e0.jpg" alt="Carob Juice" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Carob Juice</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Soak carob in water then blend with sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Carob</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="64">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Banana Milk Juice" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Banana Milk Juice</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend banana with milk, honey and vanilla...</div>
+                            <div class="card-tags">
+                                <span class="tag">Banana</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="65">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Watermelon Juice" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Watermelon Juice</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend watermelon with water, sugar and lemon juice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Watermelon</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="66">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Kiwi Juice" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Kiwi Juice</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend kiwi with water and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Kiwi</span><span class="tag">Water</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="67">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Avocado Juice" loading="lazy">
+                            <span class="card-badge">85 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Avocado Juice</div>
+                                <div class="card-price">85 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend avocado with milk and honey...</div>
+                            <div class="card-tags">
+                                <span class="tag">Avocado</span><span class="tag">Milk</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="yogurt">
+                <h3 class="category-title"><i class="fas fa-jar"></i> Yogurt</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="68">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Blended Yogurt" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Blended Yogurt</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend yogurt with fruit, honey and nuts...</div>
+                            <div class="card-tags">
+                                <span class="tag">Yogurt</span><span class="tag">Fruit</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="69">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Honey Yogurt" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Honey Yogurt</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Add honey and nuts to yogurt...</div>
+                            <div class="card-tags">
+                                <span class="tag">Yogurt</span><span class="tag">Honey</span><span class="tag">Nuts</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="70">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Mango Yogurt" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mango Yogurt</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend yogurt with mango and honey...</div>
+                            <div class="card-tags">
+                                <span class="tag">Yogurt</span><span class="tag">Mango</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="71">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Strawberry Yogurt" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Strawberry Yogurt</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend yogurt with strawberries and honey...</div>
+                            <div class="card-tags">
+                                <span class="tag">Yogurt</span><span class="tag">Strawberries</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="72">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Blueberry Yogurt" loading="lazy">
+                            <span class="card-badge">60 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Blueberry Yogurt</div>
+                                <div class="card-price">60 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend yogurt with blueberries and honey...</div>
+                            <div class="card-tags">
+                                <span class="tag">Yogurt</span><span class="tag">Blueberries</span><span class="tag">Honey</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="cocktail">
+                <h3 class="category-title"><i class="fas fa-wine-glass"></i> Cocktail</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="73">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Florida Cocktail" loading="lazy">
+                            <span class="card-badge">65 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Florida Cocktail</div>
+                                <div class="card-price">65 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend orange with lemon, sugar and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Orange</span><span class="tag">Lemon</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="74">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Mojito" loading="lazy">
+                            <span class="card-badge">55 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Mojito</div>
+                                <div class="card-price">55 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Muddle mint with lemon and sugar, add water and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Lemon</span><span class="tag">Mint</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="75">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/5c36166b9d3eca0bfb36bbfd1266d03cdcbaba62.jpg" alt="Blueberry Mojito" loading="lazy">
+                            <span class="card-badge">65 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Blueberry Mojito</div>
+                                <div class="card-price">65 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend blueberries with lemon, mint and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Blueberries</span><span class="tag">Lemon</span><span class="tag">Mint</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="76">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Red Bull Mojito" loading="lazy">
+                            <span class="card-badge">85 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Red Bull Mojito</div>
+                                <div class="card-price">85 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix Red Bull with lemon, mint and sugar...</div>
+                            <div class="card-tags">
+                                <span class="tag">Red Bull</span><span class="tag">Lemon</span><span class="tag">Mint</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="77">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Hammer Red Bull" loading="lazy">
+                            <span class="card-badge">90 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Hammer Red Bull</div>
+                                <div class="card-price">90 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix Red Bull with fruit juice and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Red Bull</span><span class="tag">Fruit Juice</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="78">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Pina Colada" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Pina Colada</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Blend pineapple with coconut milk, cream and ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Pineapple</span><span class="tag">Coconut Milk</span><span class="tag">Coconut Cream</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="soda">
+                <h3 class="category-title"><i class="fas fa-bottle-water"></i> Soda</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="79">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Cola" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cola</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour cola over ice with lemon slices...</div>
+                            <div class="card-tags">
+                                <span class="tag">Cola</span><span class="tag">Ice</span><span class="tag">Lemon</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="80">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Pepsi" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Pepsi</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Pepsi over ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Pepsi</span><span class="tag">Ice</span><span class="tag">Lemon</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="81">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Sprite" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Sprite</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Sprite over ice with lemon...</div>
+                            <div class="card-tags">
+                                <span class="tag">Sprite</span><span class="tag">Ice</span><span class="tag">Lemon</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="82">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Fanta" loading="lazy">
+                            <span class="card-badge">30 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Fanta</div>
+                                <div class="card-price">30 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Fanta over ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Fanta</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="83">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Fayrouz" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Fayrouz</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Fayrouz over ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Fayrouz</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="84">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Birell" loading="lazy">
+                            <span class="card-badge">35 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Birell</div>
+                                <div class="card-price">35 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Birell over ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Birell</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="85">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn.loveandlemons.com/943ea763cedb97c51e4464bdd45db649d1814285.jpg" alt="Red Bull" loading="lazy">
+                            <span class="card-badge">80 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Red Bull</div>
+                                <div class="card-price">80 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Pour Red Bull over ice...</div>
+                            <div class="card-tags">
+                                <span class="tag">Red Bull</span><span class="tag">Ice</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="86">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/lifemadesweeter.com/d6162417d051b16b052ced6f27e8d469f00f404c.jpg" alt="Water" loading="lazy">
+                            <span class="card-badge">10 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Water</div>
+                                <div class="card-price">10 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Cold mineral water...</div>
+                            <div class="card-tags">
+                                <span class="tag">Mineral Water</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="dessert">
+                <h3 class="category-title"><i class="fas fa-cake-candles"></i> Dessert</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="87">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Cheesecake" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Cheesecake</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Mix cream cheese with sugar and vanilla over biscuit layer...</div>
+                            <div class="card-tags">
+                                <span class="tag">Cream Cheese</span><span class="tag">Biscuit</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="88">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Fudge" loading="lazy">
+                            <span class="card-badge">75 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Fudge</div>
+                                <div class="card-price">75 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Melt chocolate with condensed milk and butter...</div>
+                            <div class="card-tags">
+                                <span class="tag">Chocolate</span><span class="tag">Condensed Milk</span><span class="tag">Butter</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" data-index="89">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Molten Cake" loading="lazy">
+                            <span class="card-badge">85 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Molten Cake</div>
+                                <div class="card-price">85 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Bake chocolate cake with molten chocolate center...</div>
+                            <div class="card-tags">
+                                <span class="tag">Chocolate</span><span class="tag">Butter</span><span class="tag">Sugar</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="category-section reveal" data-category="ice_cream">
+                <h3 class="category-title"><i class="fas fa-ice-cream"></i> Ice Cream</h3>
+                <div class="menu-grid">
+
+                    <div class="menu-card" data-index="90">
+                        <div class="card-image">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.recipetineats.com/9be0feb87580fa1d8de26152eecb3a199d79783c.jpg" alt="Domix Ice Cream" loading="lazy">
+                            <span class="card-badge">50 EGP</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="card-title">Domix Ice Cream</div>
+                                <div class="card-price">50 <span>EGP</span></div>
+                            </div>
+                            <div class="card-description">Scoop of ice cream with sauce, nuts and cream...</div>
+                            <div class="card-tags">
+                                <span class="tag">Ice Cream</span><span class="tag">Sauce</span><span class="tag">Nuts</span>
+                            </div>
+                            <div class="card-hint">
+                                <i class="fas fa-hand-pointer"></i> Click for ingredients & preparation
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 id="modalTitle">Item Name</h3>
+                <div class="modal-price" id="modalPrice">0 EGP</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4><i class="fas fa-list-check"></i> Ingredients</h4>
+                    <div class="ingredients-list" id="modalIngredients">
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><i class="fas fa-fire-burner"></i> Preparation</h4>
+                    <div class="how-to-box" id="modalHowTo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <div class="about-text reveal">
+                <h2>Our Story</h2>
+                <p>Domix Café started in the heart of Dalia, right next to the National Bank of Egypt. We mix the finest coffee beans to bring you a unique experience of happiness in every cup.</p>
+                <p>We believe coffee is not just a drink, but a moment of pleasure and warmth. From traditional Turkish coffee to our signature milkshakes, every item on our menu carries our special touch.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">91</div>
+                        <div class="stat-label">Premium Items</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Quality</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">❤️</div>
+                        <div class="stat-label">Customer Love</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image reveal">
+                <i class="fas fa-mug-hot" style="color: var(--gold); opacity: 0.5;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="section-header reveal">
+            <h2>Contact Us</h2>
+            <p>Visit us in Dalia or call for inquiries</p>
+        </div>
+        <div class="contact-info reveal">
+            <div class="contact-card">
+                <i class="fas fa-location-dot"></i>
+                <h3>Address</h3>
+                <p>Dalia Street - Next to National Bank of Egypt</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>Phone</h3>
+                <p>01152208232</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-clock"></i>
+                <h3>Working Hours</h3>
+                <p>Daily 8 AM - 12 AM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Domix Café</div>
+            <div class="footer-tagline">We mixed coffee beans to bring you happiness</div>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="copyright">© 2026 Domix Café. All rights reserved. Made with love ☕</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu data array
+        const menuData = [{"name": "Spanish Latte", "price": 70, "ingredients": ["Espresso", "Steamed Milk", "Sweetened Condensed Milk", "Cinnamon"], "howTo": "Slowly heat the milk, brew the espresso, add sweetened condensed milk and cinnamon"}, {"name": "Pistachio Latte", "price": 70, "ingredients": ["Espresso", "Milk", "Pistachio Butter", "Whipped Cream"], "howTo": "Mix pistachio butter with hot milk, add espresso and whipped cream"}, {"name": "Affogato", "price": 50, "ingredients": ["Espresso", "Vanilla Ice Cream", "Dark Chocolate"], "howTo": "Pour hot espresso over vanilla ice cream with shaved chocolate"}, {"name": "Nescafe Classic", "price": 30, "ingredients": ["Nescafe", "Hot Water", "Sugar"], "howTo": "Add a spoon of Nescafe to a cup, pour hot water and stir well"}, {"name": "Nescafe with Milk", "price": 45, "ingredients": ["Nescafe", "Hot Milk", "Sugar", "Cream"], "howTo": "Dissolve Nescafe in hot water, add steamed milk and sugar"}, {"name": "Espresso", "price": 35, "ingredients": ["Arabica Coffee Beans", "Water"], "howTo": "Grind beans finely, press hot water under high pressure for 25-30 seconds"}, {"name": "Double Espresso", "price": 45, "ingredients": ["Arabica Beans (Double Shot)", "Water"], "howTo": "Double shot espresso pressed under high pressure for concentrated flavor"}, {"name": "Espresso Macchiato", "price": 40, "ingredients": ["Espresso", "Steamed Milk", "Light Foam"], "howTo": "Espresso with a light touch of steamed milk and foam"}, {"name": "Double Macchiato", "price": 50, "ingredients": ["Double Espresso", "Steamed Milk", "Foam"], "howTo": "Double shot espresso with steamed milk and thick foam"}, {"name": "Cortado", "price": 55, "ingredients": ["Espresso", "Warm Milk"], "howTo": "Half cup espresso and half cup warm milk in 1:1 ratio"}, {"name": "Turkish Coffee", "price": 25, "ingredients": ["Turkish Ground Coffee", "Water", "Sugar"], "howTo": "Boil water with finely ground coffee in a cezve until foam appears"}, {"name": "Double Turkish", "price": 35, "ingredients": ["Turkish Coffee (Double)", "Water", "Sugar"], "howTo": "Double amount of Turkish ground coffee with water in cezve"}, {"name": "French Coffee", "price": 40, "ingredients": ["Roasted Coffee", "Nescafe", "Cocoa", "Milk Powder", "Cinnamon"], "howTo": "Mix roasted coffee with Nescafe, cocoa, milk powder and cinnamon"}, {"name": "Hazelnut Coffee", "price": 45, "ingredients": ["Coffee", "Crushed Hazelnuts", "Milk", "Vanilla", "Cinnamon"], "howTo": "Add crushed hazelnuts, vanilla and cinnamon to hot coffee"}, {"name": "Nutella Coffee", "price": 55, "ingredients": ["Espresso", "Nutella", "Milk", "Cream"], "howTo": "Melt Nutella in hot milk, add espresso and cream"}, {"name": "Flat White", "price": 60, "ingredients": ["Espresso", "Steamed Milk", "Microfoam"], "howTo": "One or two shots espresso with microfoam from steamed milk"}, {"name": "Mocha", "price": 65, "ingredients": ["Espresso", "Milk", "Cocoa", "Chocolate", "Cream"], "howTo": "Mix espresso with cocoa, chocolate and steamed milk"}, {"name": "Americano", "price": 45, "ingredients": ["Espresso", "Hot Water"], "howTo": "Espresso with added hot water to dilute the flavor"}, {"name": "Latte", "price": 60, "ingredients": ["Espresso", "Steamed Milk", "Light Foam"], "howTo": "Espresso with large amount of steamed milk and light foam"}, {"name": "Cappuccino", "price": 60, "ingredients": ["Espresso", "Steamed Milk", "Thick Foam", "Cinnamon"], "howTo": "Espresso with steamed milk and thick foam, sprinkle cinnamon on top"}, {"name": "Herbal Cocktail", "price": 35, "ingredients": ["Mixed Herbs", "Water", "Honey", "Lemon"], "howTo": "Steep herbs in hot water with honey and lemon"}, {"name": "Cinnamon Milk", "price": 40, "ingredients": ["Milk", "Cinnamon", "Sugar", "Vanilla"], "howTo": "Heat milk with cinnamon, sugar and vanilla"}, {"name": "Hot Cider", "price": 45, "ingredients": ["Apple", "Cinnamon", "Cloves", "Sugar", "Water"], "howTo": "Boil apple juice with cinnamon, cloves and sugar"}, {"name": "Sahlab", "price": 45, "ingredients": ["Sahlab Powder", "Milk", "Sugar", "Nuts", "Cinnamon", "Raisins"], "howTo": "Dissolve sahlab in hot milk with continuous stirring until thickened"}, {"name": "Hot Chocolate", "price": 50, "ingredients": ["Cocoa", "Milk", "Chocolate", "Sugar", "Cream"], "howTo": "Dissolve cocoa and chocolate in hot milk with cream"}, {"name": "Tea", "price": 15, "ingredients": ["Black Tea", "Water", "Sugar"], "howTo": "Steep tea bag in hot water for 3-5 minutes"}, {"name": "Ahmad Tea", "price": 20, "ingredients": ["Ahmad Tea", "Water", "Sugar"], "howTo": "Steep Ahmad tea in hot water"}, {"name": "Flavored Tea", "price": 25, "ingredients": ["Tea", "Various Flavors", "Water"], "howTo": "Black tea with flavors like berry or fruits"}, {"name": "Tea with Milk", "price": 30, "ingredients": ["Black Tea", "Milk", "Sugar", "Cardamom"], "howTo": "Boil tea with milk, cardamom and sugar"}, {"name": "Coffee Mix", "price": 25, "ingredients": ["Instant Coffee", "Creamer", "Sugar"], "howTo": "Mix instant coffee with creamer, sugar and hot water"}, {"name": "Herbal Tea", "price": 20, "ingredients": ["Natural Herbs", "Water", "Honey"], "howTo": "Steep natural herbs in hot water with honey"}, {"name": "Iced Coffee", "price": 60, "ingredients": ["Coffee", "Ice", "Milk", "Sugar"], "howTo": "Mix cold coffee with milk, ice and sugar"}, {"name": "Iced Latte", "price": 60, "ingredients": ["Espresso", "Cold Milk", "Ice", "Sugar"], "howTo": "Chilled espresso with cold milk and ice"}, {"name": "Iced Pistachio Latte", "price": 70, "ingredients": ["Espresso", "Cold Milk", "Pistachio Butter", "Ice"], "howTo": "Mix pistachio butter with cold milk, espresso and ice"}, {"name": "Iced Spanish Latte", "price": 70, "ingredients": ["Espresso", "Cold Milk", "Condensed Milk", "Ice"], "howTo": "Espresso with cold milk, condensed milk and ice"}, {"name": "Iced Cappuccino", "price": 60, "ingredients": ["Espresso", "Cold Milk", "Foam", "Ice"], "howTo": "Chilled espresso with milk, foam and ice"}, {"name": "Iced Mocha", "price": 65, "ingredients": ["Espresso", "Cocoa", "Cold Milk", "Ice", "Cream"], "howTo": "Mix espresso with cocoa, cold milk and ice"}, {"name": "Iced Americano", "price": 45, "ingredients": ["Espresso", "Cold Water", "Ice"], "howTo": "Espresso with cold water and ice"}, {"name": "Caramel Frappe", "price": 70, "ingredients": ["Coffee", "Caramel", "Milk", "Ice", "Cream"], "howTo": "Blend coffee with caramel, milk and ice"}, {"name": "Caramel Frappuccino", "price": 70, "ingredients": ["Coffee", "Caramel", "Milk", "Ice", "Cream", "Caramel Sauce"], "howTo": "Blend all ingredients until creamy consistency"}, {"name": "Vanilla Milkshake", "price": 75, "ingredients": ["Vanilla Ice Cream", "Milk", "Vanilla", "Cream"], "howTo": "Blend vanilla ice cream with milk and vanilla"}, {"name": "Caramel Milkshake", "price": 75, "ingredients": ["Ice Cream", "Caramel", "Milk", "Cream"], "howTo": "Blend ice cream with caramel and milk"}, {"name": "Chocolate Milkshake", "price": 75, "ingredients": ["Chocolate Ice Cream", "Milk", "Cocoa", "Cream"], "howTo": "Blend chocolate ice cream with milk and cocoa"}, {"name": "Strawberry Milkshake", "price": 75, "ingredients": ["Ice Cream", "Strawberries", "Milk", "Sugar", "Cream"], "howTo": "Blend ice cream with fresh strawberries and milk"}, {"name": "Mango Milkshake", "price": 75, "ingredients": ["Ice Cream", "Mango", "Milk", "Sugar", "Cream"], "howTo": "Blend ice cream with mango and milk"}, {"name": "Oreo Milkshake", "price": 75, "ingredients": ["Ice Cream", "Oreo Cookies", "Milk", "Cream"], "howTo": "Blend ice cream with crushed Oreo cookies and milk"}, {"name": "Lotus Milkshake", "price": 75, "ingredients": ["Ice Cream", "Lotus Biscuit", "Milk", "Caramel", "Cream"], "howTo": "Blend ice cream with Lotus biscuit, caramel and milk"}, {"name": "Blueberry Milkshake", "price": 75, "ingredients": ["Ice Cream", "Blueberries", "Milk", "Sugar", "Cream"], "howTo": "Blend ice cream with blueberries and milk"}, {"name": "Pistachio Milkshake", "price": 85, "ingredients": ["Ice Cream", "Pistachio", "Milk", "Cream"], "howTo": "Blend ice cream with ground pistachio and milk"}, {"name": "Fudge Milkshake", "price": 95, "ingredients": ["Ice Cream", "Chocolate Fudge", "Milk", "Cream"], "howTo": "Blend ice cream with fudge and milk"}, {"name": "Cheesecake Milkshake", "price": 95, "ingredients": ["Ice Cream", "Cheesecake", "Milk", "Cream", "Strawberry Sauce"], "howTo": "Blend ice cream with cheesecake pieces and milk"}, {"name": "Watermelon Smoothie", "price": 55, "ingredients": ["Watermelon", "Ice", "Sugar", "Water"], "howTo": "Blend watermelon with ice and sugar"}, {"name": "Blueberry Smoothie", "price": 60, "ingredients": ["Blueberries", "Milk", "Honey", "Ice"], "howTo": "Blend blueberries with milk, honey and ice"}, {"name": "Kiwi Smoothie", "price": 65, "ingredients": ["Kiwi", "Milk", "Honey", "Ice"], "howTo": "Blend kiwi with milk, honey and ice"}, {"name": "Mango Smoothie", "price": 60, "ingredients": ["Mango", "Milk", "Honey", "Ice"], "howTo": "Blend mango with milk, honey and ice"}, {"name": "Strawberry Smoothie", "price": 55, "ingredients": ["Strawberries", "Milk", "Honey", "Ice"], "howTo": "Blend strawberries with milk, honey and ice"}, {"name": "Lemon Smoothie", "price": 40, "ingredients": ["Lemon", "Sugar", "Water", "Ice"], "howTo": "Blend lemon juice with sugar, water and ice"}, {"name": "Lemon Mint Smoothie", "price": 45, "ingredients": ["Lemon", "Mint", "Sugar", "Water", "Ice"], "howTo": "Blend lemon with fresh mint, sugar and ice"}, {"name": "Mango Juice", "price": 60, "ingredients": ["Fresh Mango", "Water", "Sugar"], "howTo": "Blend fresh mango with water and sugar"}, {"name": "Strawberry Juice", "price": 55, "ingredients": ["Fresh Strawberries", "Water", "Sugar"], "howTo": "Blend strawberries with water and sugar"}, {"name": "Strawberry Milk Juice", "price": 55, "ingredients": ["Strawberries", "Milk", "Sugar"], "howTo": "Blend strawberries with milk and sugar"}, {"name": "Guava Juice", "price": 55, "ingredients": ["Fresh Guava", "Water", "Sugar"], "howTo": "Blend guava with water and sugar"}, {"name": "Guava Milk Juice", "price": 55, "ingredients": ["Guava", "Milk", "Sugar"], "howTo": "Blend guava with milk and sugar"}, {"name": "Carob Juice", "price": 35, "ingredients": ["Carob", "Water", "Sugar"], "howTo": "Soak carob in water then blend with sugar"}, {"name": "Banana Milk Juice", "price": 50, "ingredients": ["Banana", "Milk", "Honey", "Vanilla"], "howTo": "Blend banana with milk, honey and vanilla"}, {"name": "Watermelon Juice", "price": 50, "ingredients": ["Watermelon", "Water", "Sugar", "Lemon"], "howTo": "Blend watermelon with water, sugar and lemon juice"}, {"name": "Kiwi Juice", "price": 60, "ingredients": ["Kiwi", "Water", "Sugar", "Lemon"], "howTo": "Blend kiwi with water and sugar"}, {"name": "Avocado Juice", "price": 85, "ingredients": ["Avocado", "Milk", "Honey", "Vanilla"], "howTo": "Blend avocado with milk and honey"}, {"name": "Blended Yogurt", "price": 50, "ingredients": ["Yogurt", "Fruit", "Honey", "Nuts"], "howTo": "Blend yogurt with fruit, honey and nuts"}, {"name": "Honey Yogurt", "price": 55, "ingredients": ["Yogurt", "Honey", "Nuts", "Fruit"], "howTo": "Add honey and nuts to yogurt"}, {"name": "Mango Yogurt", "price": 60, "ingredients": ["Yogurt", "Mango", "Honey"], "howTo": "Blend yogurt with mango and honey"}, {"name": "Strawberry Yogurt", "price": 60, "ingredients": ["Yogurt", "Strawberries", "Honey"], "howTo": "Blend yogurt with strawberries and honey"}, {"name": "Blueberry Yogurt", "price": 60, "ingredients": ["Yogurt", "Blueberries", "Honey"], "howTo": "Blend yogurt with blueberries and honey"}, {"name": "Florida Cocktail", "price": 65, "ingredients": ["Orange", "Lemon", "Sugar", "Water", "Ice"], "howTo": "Blend orange with lemon, sugar and ice"}, {"name": "Mojito", "price": 55, "ingredients": ["Lemon", "Mint", "Sugar", "Water", "Ice"], "howTo": "Muddle mint with lemon and sugar, add water and ice"}, {"name": "Blueberry Mojito", "price": 65, "ingredients": ["Blueberries", "Lemon", "Mint", "Sugar", "Ice"], "howTo": "Blend blueberries with lemon, mint and sugar"}, {"name": "Red Bull Mojito", "price": 85, "ingredients": ["Red Bull", "Lemon", "Mint", "Sugar", "Ice"], "howTo": "Mix Red Bull with lemon, mint and sugar"}, {"name": "Hammer Red Bull", "price": 90, "ingredients": ["Red Bull", "Fruit Juice", "Ice"], "howTo": "Mix Red Bull with fruit juice and ice"}, {"name": "Pina Colada", "price": 75, "ingredients": ["Pineapple", "Coconut Milk", "Coconut Cream", "Ice"], "howTo": "Blend pineapple with coconut milk, cream and ice"}, {"name": "Cola", "price": 30, "ingredients": ["Cola", "Ice", "Lemon"], "howTo": "Pour cola over ice with lemon slices"}, {"name": "Pepsi", "price": 30, "ingredients": ["Pepsi", "Ice", "Lemon"], "howTo": "Pour Pepsi over ice"}, {"name": "Sprite", "price": 30, "ingredients": ["Sprite", "Ice", "Lemon"], "howTo": "Pour Sprite over ice with lemon"}, {"name": "Fanta", "price": 30, "ingredients": ["Fanta", "Ice"], "howTo": "Pour Fanta over ice"}, {"name": "Fayrouz", "price": 35, "ingredients": ["Fayrouz", "Ice"], "howTo": "Pour Fayrouz over ice"}, {"name": "Birell", "price": 35, "ingredients": ["Birell", "Ice"], "howTo": "Pour Birell over ice"}, {"name": "Red Bull", "price": 80, "ingredients": ["Red Bull", "Ice"], "howTo": "Pour Red Bull over ice"}, {"name": "Water", "price": 10, "ingredients": ["Mineral Water"], "howTo": "Cold mineral water"}, {"name": "Cheesecake", "price": 75, "ingredients": ["Cream Cheese", "Biscuit", "Sugar", "Vanilla", "Fruit Sauce"], "howTo": "Mix cream cheese with sugar and vanilla over biscuit layer"}, {"name": "Fudge", "price": 75, "ingredients": ["Chocolate", "Condensed Milk", "Butter", "Vanilla"], "howTo": "Melt chocolate with condensed milk and butter"}, {"name": "Molten Cake", "price": 85, "ingredients": ["Chocolate", "Butter", "Sugar", "Eggs", "Flour"], "howTo": "Bake chocolate cake with molten chocolate center"}, {"name": "Domix Ice Cream", "price": 50, "ingredients": ["Ice Cream", "Sauce", "Nuts", "Cream"], "howTo": "Scoop of ice cream with sauce, nuts and cream"}];
+
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                navbar.style.padding = '0.8rem 5%';
+            } else {
+                navbar.style.boxShadow = 'none';
+                navbar.style.padding = '1rem 5%';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const categorySections = document.querySelectorAll('.category-section');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                categorySections.forEach(section => {
+                    if (filter === 'all' || section.getAttribute('data-category') === filter) {
+                        section.style.display = 'block';
+                        setTimeout(() => {
+                            section.style.opacity = '1';
+                            section.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            section.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        function openModal(index) {
+            const item = menuData[index];
+            if (!item) return;
+
+            document.getElementById('modalTitle').textContent = item.name;
+            document.getElementById('modalPrice').textContent = item.price + ' EGP';
+
+            const ingredientsContainer = document.getElementById('modalIngredients');
+            ingredientsContainer.innerHTML = '';
+            item.ingredients.forEach(ing => {
+                const tag = document.createElement('span');
+                tag.className = 'ingredient-tag';
+                tag.textContent = ing;
+                ingredientsContainer.appendChild(tag);
+            });
+
+            document.getElementById('modalHowTo').textContent = item.howTo;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('modalOverlay') || event.target.closest('.modal-close')) {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Attach click handlers to menu cards
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.getAttribute('data-index'));
+                openModal(index);
+            });
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            mobileOverlay.classList.add('active');
+        });
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+        }
+
+        mobileNavClose.addEventListener('click', closeMobileNav);
+        mobileOverlay.addEventListener('click', closeMobileNav);
+
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', closeMobileNav);
+        });
+
+        // Keyboard escape to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeMobileNav();
+            }
+        });
+    </script>
+</body>
+</html>
